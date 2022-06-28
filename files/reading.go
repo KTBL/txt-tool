@@ -2,14 +2,13 @@ package files
 
 import (
 	"bufio"
-	"fmt"
 	"log"
 	"os"
 )
 
-func ReadLineByLine(str *string) {
+func ReadLineByLine(str *string) []string {
 
-	// answer := []string{}
+	answer := []string{}
 
 	f, err := os.Open(*str)
 	if err != nil {
@@ -24,11 +23,15 @@ func ReadLineByLine(str *string) {
 	s := bufio.NewScanner(f)
 
 	for s.Scan() {
-		fmt.Println(s.Text())
+		line := s.Text()
+		// fmt.Println(line)
+		answer = append(answer, line)
 	}
 	err = s.Err()
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	return answer
 
 }
